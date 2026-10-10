@@ -6,7 +6,7 @@ import { CreatePlaylistForm } from '@/features/playlists/ui/PlaylistsPage/Create
 import type { PlaylistData, UpdatePlaylistArgs } from '@/features/playlists/api/playlistsApi.types.ts'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { PlaylistItem } from '@/features/playlists/ui/PlaylistsPage/PlaylistsPage/PlaylistItem.tsx'
+import { PlaylistItem } from './PlaylistItem/PlaylistItem.tsx'
 import { EditPlaylistForm } from '@/features/playlists/ui/PlaylistsPage/EditPlatlistForm/EditPlatlistForm.tsx'
 
 export const PlaylistsPage = () => {

@@ -1,5 +1,6 @@
 import { Routing } from '@/common/routing'
 import { Header } from '@/common/components'
+import { ToastContainer } from 'react-toastify'
 import s from './App.module.css'
 
 export const App = () => {
@@ -9,6 +10,7 @@ export const App = () => {
       <div className={s.layout}>
         <Routing />
       </div>
+      <ToastContainer/>
     </>
   )
 }
