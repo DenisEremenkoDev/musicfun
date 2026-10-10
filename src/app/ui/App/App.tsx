@@ -10,7 +10,7 @@ export const App = () => {
       <div className={s.layout}>
         <Routing />
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   )
 }
