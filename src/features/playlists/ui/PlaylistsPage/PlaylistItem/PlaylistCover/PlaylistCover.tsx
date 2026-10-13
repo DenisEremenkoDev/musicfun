@@ -2,8 +2,8 @@ import { useDeletePlaylistCoverMutation, useUploadPlaylistCoverMutation } from '
 import defaultCover from '@/assets/images/default-playlist-cover.png'
 import type { ChangeEvent } from 'react'
 import  { toast } from 'react-toastify'
-import type { Images } from './common/types'
 import s from './PlaylistCover.module.css'
+import type { Images } from '@/common/types'
 
 type Props = {
   playlistId: string

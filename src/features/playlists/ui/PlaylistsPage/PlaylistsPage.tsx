@@ -8,10 +8,15 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { PlaylistItem } from './PlaylistItem/PlaylistItem.tsx'
 import { EditPlaylistForm } from '@/features/playlists/ui/PlaylistsPage/EditPlatlistForm/EditPlatlistForm.tsx'
+import { useDebounceValue } from '@/common/hooks'
 
 export const PlaylistsPage = () => {
-  const { data } = useFetchPlaylistsQuery()
+  const [search, setSearch] = useState('')
+  const debounceSearch = useDebounceValue(search)
+  const { data, isLoading } = useFetchPlaylistsQuery({ search: debounceSearch })
   const [deletePlaylist] = useDeletePlaylistMutation()
+
+
 
   const [playlistId, setPlaylistId] = useState<string | null>(null)
   const { register, handleSubmit, reset } = useForm<UpdatePlaylistArgs>()
@@ -39,7 +44,13 @@ export const PlaylistsPage = () => {
     <div className={s.container}>
       <h1>Playlists page</h1>
       <CreatePlaylistForm />
+      <input
+        type="search"
+        placeholder={'Search playlist by title'}
+        onChange={(e) => setSearch(e.currentTarget.value)}
+      />
       <div className={s.items}>
+        {!data?.data.length && !isLoading &&  <h2>Playlists not found</h2>}
         {data?.data.map((playlist) => {
           const isEditing = playlist.id === playlistId
 
@@ -67,3 +78,5 @@ export const PlaylistsPage = () => {
     </div>
   )
 }
+
+//1.02
