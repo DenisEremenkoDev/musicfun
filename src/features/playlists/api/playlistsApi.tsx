@@ -21,6 +21,7 @@ export const playlistsApi = baseApi.injectEndpoints({
           }
         },
         providesTags: ['Playlist'],
+        // keepUnusedDataFor: 60, // время жизни кэша
       }),
       createPlaylist: build.mutation<CreatePlaylistResponse, CreatePlaylistArgs>({
         query: (args) => ({

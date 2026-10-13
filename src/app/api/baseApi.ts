@@ -13,5 +13,8 @@ export const baseApi = createApi({
       return headers
     },
   }),
+  // keepUnusedDataFor: 60, // время жизни кэша
+  //refetchOnFocus: true, // синхранизация вкладок
+  refetchOnReconnect: true, // обновление данных после дисконнекта
   endpoints: () => ({}),
 })
