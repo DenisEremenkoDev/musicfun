@@ -3,11 +3,11 @@ import type { FetchTracksResponse } from '@/features/tracks/api/tracksApi.types.
 
 export const tracksApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    fetchTracks: build.infiniteQuery<FetchTracksResponse, void, string | undefined>({
+    fetchTracks: build.infiniteQuery<FetchTracksResponse, void, string | null>({
       infiniteQueryOptions: {
         initialPageParam: undefined,
-        getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams, queryArg) => {
-          return '1'
+        getNextPageParam: (lastPage) => {
+          return lastPage.meta.nextCursor || null
         },
       },
       query: ({ pageParam }) => {
