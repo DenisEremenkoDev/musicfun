@@ -9,5 +9,3 @@ export const MainPage = () => {
     </div>
   )
 }
-
-//2.30
