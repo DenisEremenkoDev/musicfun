@@ -1,12 +1,11 @@
-// import {useFetchPlaylistsQuery} from '@/features/playlists/api/playlistsApi.tsx'
 import s from './PlaylistsPage.module.css'
 
-import { useFetchPlaylistsQuery } from '@/features/playlists/api/playlistsApi.tsx'
 import { CreatePlaylistForm } from '@/features/playlists/ui/PlaylistsPage/CreatePlaylistForm/CreatePlaylistForm.tsx'
 import { type ChangeEvent, useState } from 'react'
 import { useDebounceValue } from '@/common/hooks'
 import { Pagination } from '@/common/components'
 import { PlaylistsList } from '@/features/playlists/ui/PlaylistsPage/PlaylistsList/PlaylistsList.tsx'
+import { useFetchPlaylistsQuery } from '@/features/playlists/api/playlistsApi.tsx'
 
 export const PlaylistsPage = () => {
   const [search, setSearch] = useState('')

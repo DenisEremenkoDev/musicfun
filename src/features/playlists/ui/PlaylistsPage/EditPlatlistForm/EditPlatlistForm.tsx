@@ -20,7 +20,8 @@ export const EditPlaylistForm = ({setPlaylistId,playlistId,handleSubmit,register
     updatePlaylist({
       playlistId: playlistId,
       body: data,
-    }).then(() => setPlaylistId(null))
+    })
+    setPlaylistId(null)
   }
 
   return (
