@@ -16,7 +16,7 @@ export const playlistsApi = baseApi.injectEndpoints({
         query: (params) => {
           return {
             method: 'get',
-            url: 'playlists',
+            url: 'playlists111',
             params,
           }
         },
