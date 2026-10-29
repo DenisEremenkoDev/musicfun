@@ -6,18 +6,18 @@ export const Login = () => {
 
   const loginHandler = () => {
     // Создаем URI для перенаправления после авторизации
-    debugger
+
     const redirectUri = import.meta.env.VITE_DOMAIN_ADDRESS + Path.OAuthRedirect
 
     // Создаем URL endpoint OAuth авторизации, добавляя callbackUrl как параметр запроса
     const url = `${import.meta.env.VITE_BASE_URL}/auth/oauth-redirect?callbackUrl=${redirectUri}`
 
     // Открываем всплывающее окно для OAuth авторизации
-    window.open(url, 'oauthPopup', 'width=500, height=600')
+    window.open(url, 'oauthPopup', 'width=500,height=600')
 
     // Функция-обработчик для получения сообщений из всплывающего окна
     const receiveMessage = async (event: MessageEvent) => {
-      debugger
+
       if (event.origin !== import.meta.env.VITE_DOMAIN_ADDRESS) return
 
       const { code } = event.data
