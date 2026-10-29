@@ -1,34 +1,36 @@
 import type {
   CreatePlaylistArgs,
-  CreatePlaylistResponse,
   FetchPlaylistsArgs,
-  PlaylistsResponse,
   UpdatePlaylistArgs,
-  UpdatePlaylistRequest,
 } from './playlistsApi.types'
 import { baseApi } from '@/app/api/baseApi.ts'
 import type { Images } from '@/common/types'
+import { playlistCreateResponseSchema, playlistsResponseSchema } from '@/features/playlists/model/playlists.schemas.ts'
+import { imagesSchema } from '@/common/shemas'
+import { withZodCatch } from '@/common/utils'
 
 export const playlistsApi = baseApi.injectEndpoints({
   endpoints: (build) => {
     return {
-      fetchPlaylists: build.query<PlaylistsResponse, FetchPlaylistsArgs>({
-        query: (params) => {
+      fetchPlaylists: build.query({
+        query: (params: FetchPlaylistsArgs) => {
           return {
             method: 'get',
             url: 'playlists',
             params,
           }
         },
+        ...withZodCatch(playlistsResponseSchema),
         providesTags: ['Playlist'],
         // keepUnusedDataFor: 60, // время жизни кэша
       }),
-      createPlaylist: build.mutation<CreatePlaylistResponse, CreatePlaylistArgs>({
-        query: (args) => ({
+      createPlaylist: build.mutation({
+        query: (args: CreatePlaylistArgs) => ({
           method: 'post',
           url: 'playlists',
           body: { data: { type: 'playlists', attributes: args } },
         }),
+        ...withZodCatch(playlistCreateResponseSchema),
         invalidatesTags: ['Playlist'],
       }),
       deletePlaylist: build.mutation<void, string>({
@@ -40,7 +42,7 @@ export const playlistsApi = baseApi.injectEndpoints({
       }),
       updatePlaylist: build.mutation<void, { playlistId: string; body: UpdatePlaylistArgs }>({
         query: ({ playlistId, body }) => {
-          const requestBody: UpdatePlaylistRequest = {
+          const requestBody = {
             data: { type: 'playlists', attributes: body },
           }
           return {
@@ -51,7 +53,7 @@ export const playlistsApi = baseApi.injectEndpoints({
         },
         async onQueryStarted({ playlistId, body }, { dispatch, queryFulfilled, getState }) {
           const args = playlistsApi.util.selectCachedArgsForQuery(getState(), 'fetchPlaylists')
-          const patchResults: any[] = []
+          const patchResults: { undo: () => void }[] = []
 
           args.forEach((arg) => {
             patchResults.push(
@@ -92,6 +94,7 @@ export const playlistsApi = baseApi.injectEndpoints({
             body: formData,
           }
         },
+        ...withZodCatch(imagesSchema),
         invalidatesTags: ['Playlist'],
       }),
       deletePlaylistCover: build.mutation<void, { playlistId: string }>({
@@ -101,6 +104,7 @@ export const playlistsApi = baseApi.injectEndpoints({
             url: `/playlists/${playlistId}/images/main`,
           }
         },
+
         invalidatesTags: ['Playlist'],
       }),
     }

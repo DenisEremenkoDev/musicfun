@@ -1,11 +1,13 @@
 import { baseApi } from '@/app/api/baseApi.ts'
 import type { FetchTracksResponse } from '@/features/tracks/api/tracksApi.types.ts'
+import { withZodCatch } from '@/common/utils'
+import { fetchTracksResponseSchema } from '@/features/tracks/model/tracks.schemas.ts'
 
 export const tracksApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     fetchTracks: build.infiniteQuery<FetchTracksResponse, void, string | null>({
       infiniteQueryOptions: {
-        initialPageParam: undefined,
+        initialPageParam: null,
         getNextPageParam: (lastPage) => {
           return lastPage.meta.nextCursor || null
         },
@@ -16,6 +18,7 @@ export const tracksApi = baseApi.injectEndpoints({
           params: { cursor: pageParam, paginationType: 'cursor', pageSize: 5 },
         }
       },
+      ...withZodCatch(fetchTracksResponseSchema),
     }),
   }),
 })
