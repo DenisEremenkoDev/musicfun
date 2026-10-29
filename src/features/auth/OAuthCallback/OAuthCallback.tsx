@@ -3,9 +3,7 @@
 import { useEffect } from 'react'
 
 export const OAuthCallback = () => {
-  debugger
   useEffect(() => {
-    debugger
     // Получаем текущий URL
     const url = new URL(window.location.href)
 
